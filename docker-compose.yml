@@ -1,0 +1,34 @@
+# NeMo Guardrails Lab - student playground
+#
+# Quick start:
+#   cp .env.example .env
+#   # edit .env: choose OpenAI or point VLLM_BASE_URL at a remote vLLM server
+#   docker compose up --build
+#   open http://localhost:8080
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: nemo-lab-backend
+    env_file: .env
+    environment:
+      - CONFIGS_DIR=/app/configs
+    volumes:
+      # Live-edit the .co/.yml files without rebuilding the image.
+      - ./configs:/app/configs:ro
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    container_name: nemo-lab-frontend
+    ports:
+      - "8080:80"
+    depends_on:
+      - backend
+    restart: unless-stopped

@@ -1,0 +1,16 @@
+# NeMo Guardrails lab backend
+# The [openai] extra installs langchain-openai, which NeMo Guardrails loads
+# at runtime when a config sets `engine: openai`. Without it you'd get an
+# ImportError on the first `LLMRails(config)` call.
+# (The same path is used to talk to vLLM, since vLLM is OpenAI-compatible.)
+nemoguardrails[openai]==0.21.0
+
+# Web layer
+# IMPORTANT: nemoguardrails 0.21 pulls in starlette>=0.49.1.
+# FastAPI added Starlette 0.49 support only in 0.120, so anything older
+# (e.g. 0.115.x) produces a `starlette<0.42.0 vs >=0.49.1` resolution
+# conflict at install time. Stay on 0.130+ to be safe.
+fastapi==0.136.1
+uvicorn[standard]==0.34.2
+pydantic==2.11.5
+

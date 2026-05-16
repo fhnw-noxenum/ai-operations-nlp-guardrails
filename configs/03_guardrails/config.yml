@@ -1,0 +1,11 @@
+colang_version: "2.x"
+
+models:
+  - type: main
+    engine: openai
+    model: gpt-4o-mini
+
+rails:
+  dialog:
+    user_messages:
+      embeddings_only: false
