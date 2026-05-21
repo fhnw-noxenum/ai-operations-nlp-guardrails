@@ -320,14 +320,10 @@ rails when something changes, no container restart needed.
    to also reject anything that asks the bot to ignore previous instructions.
 
 3. **Custom action.** Replace the keyword-based `toxicity_check` in
-   `configs/04_full_sample/actions.py` with a call to the OpenAI moderation
-   endpoint.
+   `configs/04_full_sample/actions.py` your own custom method.
 
 4. **Output rewriting.** Add an output rail to `04_full_sample` that
    redacts any email address from `$bot_message` before it reaches the user.
-
-5. **Provider parity.** Run the same offensive prompt against `gpt-4o-mini`
-   and an 8B vLLM model. Where do the rails behave differently? Why?
 
 ---
 
@@ -335,4 +331,3 @@ rails when something changes, no container restart needed.
 
 - NeMo Guardrails: <https://github.com/NVIDIA/NeMo-Guardrails>
 - Colang 2.0 reference: <https://docs.nvidia.com/nemo/guardrails/colang_2/overview.html>
-- vLLM: <https://docs.vllm.ai>
