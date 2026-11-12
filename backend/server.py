@@ -62,6 +62,11 @@ def _apply_provider(config: RailsConfig) -> RailsConfig:
             **(main_model.parameters or {}),
             "openai_api_base": base_url,
             "openai_api_key": os.getenv("VLLM_API_KEY", "EMPTY"),
+            # Reasoning models (e.g. Qwen3) open every reply with "<think>\n".
+            # NeMo's prompts stop on "\n", so the reply would be cut to just
+            # "<think>" and end up empty. Turn thinking off in the chat template;
+            # chat templates that don't use this flag ignore it.
+            "extra_body": {"chat_template_kwargs": {"enable_thinking": False}},
         }
     else:
         main_model.engine = "openai"
